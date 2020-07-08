@@ -12,7 +12,7 @@ app.get('/apps', (req,res)=>{
   const genres=req.query.genres;
   let filteredApps;
 
-  if (sort && sort!=='rating' && sort!=='app'){
+  if (sort && sort.toLowerCase()!=='rating' && sort.toLowerCase()!=='app'){
     res
       .status(400)
       .send('Invalid sort value');
@@ -40,13 +40,11 @@ app.get('/apps', (req,res)=>{
     });
   }else if(sort==='app'){
     filteredApps.sort((app1,app2)=>{
-        return app1.App.toLowerCase().charCodeAt(0) -app2.App.toLowerCase().charCodeAt(0);
+      return app1.App.toLowerCase().charCodeAt(0) -app2.App.toLowerCase().charCodeAt(0);
     });
   }
   res.json(filteredApps);
 });
 
-app.listen(8000,()=>{
-  console.log('Server 8000 is running');
-});
 
+module.exports = app;
